@@ -7,71 +7,55 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class RecipeTest {
 
-    private Ingredient ingredient;
+    private Recipe recipe;
 
     public void setupStage1 (){
 
-        ingredient = new Ingredient();
-        ingredient.setName("Tomate");
-        ingredient.setWeight(245);
+        recipe = new Recipe();
+    }
+
+    public void setupStage2 (){
+
+        recipe = new Recipe();
+
+        recipe.addIngredient( new Ingredient("Cebolla", 315));
+        recipe.addIngredient( new Ingredient("Ajo", 58));
+        recipe.addIngredient( new Ingredient("Arroz", 520));
     }
 
     @Test
-    public void addWeightTest (){
+    public void thereIsOneIngredientTest (){
 
         setupStage1();
 
-        this.ingredient.addWeight(54);
+        this.recipe.addIngredient( new Ingredient("sal", 12));
 
-        assertEquals(299,this.ingredient.getWeight());
+        assertEquals(1, recipe.size());
+        assertEquals("sal", recipe.getAnIngredient(0).getName());
+        assertEquals(12, recipe.getAnIngredient(0).getWeight());
     }
 
     @Test
-    public void addNegativeWeightTest (){
+    public void recipeAddANewIngredientTest (){
 
-        setupStage1();
+        setupStage2();
 
-        boolean result = false;
+        this.recipe.addIngredient( new Ingredient("Pimienta", 6));
 
-        try {
-
-            this.ingredient.addWeight(-100);
-
-        }catch (NegativeWeightException ex){
-
-            result = true;
-        }
-        assertTrue(result);
-        assertEquals(245,this.ingredient.getWeight());
+        assertEquals(4, recipe.size());
+        assertEquals("Pimienta", recipe.getLast().getName());
+        assertEquals(6, recipe.getLast().getWeight());
     }
 
     @Test
-    public void removeWeightTest (){
+    public  void recipeModifyAnIngredient (){
 
-        setupStage1();
+        setupStage2();
 
-        this.ingredient.removeWeight(45);
+        this.recipe.addIngredient( new Ingredient("Ajo", 21));
 
-        assertEquals(200, this.ingredient.getWeight());
+        assertEquals(3, recipe.size());
+        assertEquals(79, recipe.getAnIngredient(1).getWeight());
     }
 
-    @Test
-    public void removeNegativeWeightTest (){
-
-        setupStage1();
-
-        boolean result = false;
-
-        try {
-
-            this.ingredient.removeWeight(-100);
-
-        } catch (NegativeWeightException ex){
-
-            result = true;
-
-        }
-        assertTrue(result);
-        assertEquals(245, this.ingredient.getWeight());
-    }
 }
