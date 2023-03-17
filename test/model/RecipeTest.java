@@ -48,7 +48,7 @@ public class RecipeTest {
     }
 
     @Test
-    public  void recipeModifyAnIngredient (){
+    public void recipeModifyAnIngredient (){
 
         setupStage2();
 
@@ -56,6 +56,18 @@ public class RecipeTest {
 
         assertEquals(3, recipe.size());
         assertEquals(79, recipe.getAnIngredient(1).getWeight());
+    }
+
+    @Test
+
+    public void recipeDeleteAnIngredientTest (){
+
+        setupStage2();
+
+        this.recipe.removeIngredient("Ajo");
+
+        assertEquals(2, recipe.size());
+
     }
 
 }

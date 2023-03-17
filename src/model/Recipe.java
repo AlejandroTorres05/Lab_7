@@ -45,4 +45,12 @@ public class Recipe {
         return this.ingredients.get(index-1);
     }
 
+    public void removeIngredient (String name){
+        for (int i = 0; i < ingredients.size()-1; i++){
+            if (ingredients.get(i).getName().equals(name)){
+                ingredients.remove(i);
+            }
+        }
+    }
+
 }
